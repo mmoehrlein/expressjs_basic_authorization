@@ -1,0 +1,33 @@
+{
+  "name": "expressjs_basic_authorization",
+  "version": "1.0.0",
+  "description": "a starting point for an express app with authorization using jwt",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmoehrlein/expressjs_basic_authorization.git"
+  },
+  "author": "mmoehrlein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmoehrlein/expressjs_basic_authorization/issues"
+  },
+  "homepage": "https://github.com/mmoehrlein/expressjs_basic_authorization#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.0",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "express-validator": "^4.1.1",
+    "jsonwebtoken": "^8.0.0",
+    "mysql": "^2.14.1",
+    "pug": "^2.0.0-rc.4"
+  },
+  "devDependencies": {
+    "util": "^0.10.3"
+  }
+}

@@ -1,0 +1,19 @@
+doctype html
+html
+    include ../includes/head
+    body
+        include ../includes/nav
+        .main.container
+            .row
+                .col-md-6.col-md-offset-3
+                    h1.display-4.m-b-2 Sign Up
+
+                    // login form
+                    form(method='POST' action='/users/login')
+                        div.form-group
+                            label(for='name') Username:
+                            input#name.form-control(type='text', placeholder='Username' name='name')
+                        div.form-group
+                            label(for='pw') Password:
+                            input#pw.form-control(type='password' name='password' placeholder='Password')
+                        button.btn.btn-primary(type='submit') Log in
