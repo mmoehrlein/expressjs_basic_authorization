@@ -1,4 +1,4 @@
-var token = require('../models/token');
+var token = require('../models/tokenModel');
 module.exports = function(req, res, next){
     if(req.token){
 

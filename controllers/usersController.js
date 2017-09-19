@@ -1,14 +1,19 @@
 var express = require('express');
-var router = express.Router();
-var User = require('../models/user');
-var Token = require('../models/token');
-var util = require('util');
+var router  = express.Router();
+var User    = require('../models/userModel');
+var Token   = require('../models/tokenModel');
+var util    = require('util');
+
 
 // REGISTER
+router.get('/register', function(req, res){
+    res.render('../views/users/register', {title: 'Register'});
+});
+
 router.post('/register', function(req, res, next){
-    var name = req.body.name;
+    var name     = req.body.name;
     var password = req.body.password;
-    var email = req.body.email;
+    var email    = req.body.email;
     User.create(name, email, password, function(err, userid){
         if(err){
             next(err);
@@ -17,7 +22,12 @@ router.post('/register', function(req, res, next){
             if(err){
                 next(err);
             }
-            var data = {username: user.username, permissions: user.permissions};
+            var data = {
+                user: {
+                    username: user.username
+                },
+                permissions: user.permissions
+            };
             //TODO token und cookie mit expiration date
             Token.sign(data, function(err, token){
                 if(err){
@@ -31,23 +41,21 @@ router.post('/register', function(req, res, next){
     });
 });
 
-router.get('/register', function(req, res){
-    res.render('../views/users/register', {title : 'Register'});
-});
-
 // LOGIN
 router.get('/login', function(req, res){
-    res.render('../views/users/login', {title : 'Login'});
+    res.render('../views/users/login', {title: 'Login'});
 });
 
 router.post('/login', function(req, res, next){
     console.log(req.body);
     User.authenticate(req.body.username, req.body.password, function(err, res, user){
         if(err){
-           return next(err);
+            notifications.pushError(res, err.message);
+            res.render('../views/users/login', {title: 'login'});
         }
         console.log(util.inspect(user));
         console.log(res);
+        notifications.pushSuccess(res, "Hallo " + user.username + ", login war erfolgreich");
         res.redirect("/");
     });
 

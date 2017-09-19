@@ -1,11 +1,14 @@
 extends templates/layout
 block content
     .container
-        .jumbotron
-            h1 This is the Homepage
+        .jumbotron.text-center
+            h1 Willkommen auf der Homepage
             p.lead
+                h3 #{message}
+                hr
                 | Basic application with login and register functionality.
-                br
-                span= message
-            a.btn.btn-lg.btn-primary(href='/users/login', role='button') login
-            a.btn.btn-lg.btn-primary(href='/users/register', role='button') register
+            p
+                span
+                    a.btn.btn-lg.btn-primary(href='/users/login', role='button') login
+                span
+                    a.btn.btn-lg.btn-primary(href='/users/register', role='button') register

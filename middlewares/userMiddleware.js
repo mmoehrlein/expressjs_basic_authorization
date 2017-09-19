@@ -1,4 +1,4 @@
-User = require('../models/user');
+User = require('../models/userModel');
 
 module.exports = function(req, res, next){
     if(req.session && req.session.user){

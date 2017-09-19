@@ -1,18 +1,11 @@
 module.exports = function(req, res, next){
-    var token = require('../models/token');
     const bearerHeader = req.headers["authorization"];
     const bearerCookie = req.cookies.jwt;
 
     if(typeof bearerHeader !== 'undefined'){
-        const bearer = bearerHeader.split(" ");
-        token.verify(bearer[1], function(err, decoded){
-            if(error){
-                res.status(401).render('error');
-            } else {
-                req.user = decoded.user;
-                req.permissions = decoded.permissions;
-            }
-        });
+        const token = bearerHeader.split(" ")[1];
+        req.token = token;
+
     } else if(bearerCookie !== undefined){
         console.log("cookie");
         console.log(bearerCookie);

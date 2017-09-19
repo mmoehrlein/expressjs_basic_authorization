@@ -1,4 +1,4 @@
-var db = require('../helpers/db');
+var db = require('../helpers/dbHelper');
 var bcrypt = require('bcrypt');
 
 exports.create = function(username, email, password, callback){
@@ -42,7 +42,7 @@ exports.authenticate = function(username, password, callback){
         }
         console.log(results);
         if(results.length === 0){
-            return callback(new Error("user not found"));
+            return callback(new Error("Benutzername oder Passwort falsch"));
         }
 
         user = results[0];
