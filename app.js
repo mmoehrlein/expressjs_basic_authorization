@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(require('./middlewares/ensureToken'));
+app.use(require('./middlewares/notifications'));
 
 // serving static content
 app.use(express.static(__dirname + '/public'));

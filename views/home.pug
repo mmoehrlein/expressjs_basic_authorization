@@ -1,14 +1,11 @@
-doctype html
-html
-    include includes/head
-    body
-        include includes/nav
-        .container
-            .jumbotron
-                h1 This is the Homepage
-                p.lead
-                    | Basic application with login and register functionality.
-                    br
-                    span= message
-                a.btn.btn-lg.btn-primary(href='/users/login', role='button') login
-                a.btn.btn-lg.btn-primary(href='/users/register', role='button') register
+extends templates/layout
+block content
+    .container
+        .jumbotron
+            h1 This is the Homepage
+            p.lead
+                | Basic application with login and register functionality.
+                br
+                span= message
+            a.btn.btn-lg.btn-primary(href='/users/login', role='button') login
+            a.btn.btn-lg.btn-primary(href='/users/register', role='button') register

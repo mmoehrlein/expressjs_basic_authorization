@@ -34,12 +34,15 @@ exports.get = function(id, callback){
 };
 
 exports.authenticate = function(username, password, callback){
+    console.log("before query");
     db.query('SELECT * FROM users WHERE username = ?', username, function(err, results){
+        console.log("query done");
         if(err){
             return callback(err);
         }
+        console.log(results);
         if(results.length === 0){
-            return callback();
+            return callback(new Error("user not found"));
         }
 
         user = results[0];
@@ -53,6 +56,7 @@ exports.authenticate = function(username, password, callback){
     });
 };
 
+/*
 exports.changePassword = function(id, password, callback){
     db.update({id: id}, {password: hash(password)}, function(err, affected){
         if(err){
@@ -60,4 +64,4 @@ exports.changePassword = function(id, password, callback){
         }
         callback(null, affected > 0);
     });
-};
+};*/

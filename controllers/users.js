@@ -18,6 +18,7 @@ router.post('/register', function(req, res, next){
                 next(err);
             }
             var data = {username: user.username, permissions: user.permissions};
+            //TODO token und cookie mit expiration date
             Token.sign(data, function(err, token){
                 if(err){
                     next(err);
@@ -35,12 +36,22 @@ router.get('/register', function(req, res){
 });
 
 // LOGIN
-router.post('/login', function(req, res){
-    res.send(req);
-});
-
 router.get('/login', function(req, res){
     res.render('../views/users/login', {title : 'Login'});
 });
+
+router.post('/login', function(req, res, next){
+    console.log(req.body);
+    User.authenticate(req.body.username, req.body.password, function(err, res, user){
+        if(err){
+           return next(err);
+        }
+        console.log(util.inspect(user));
+        console.log(res);
+        res.redirect("/");
+    });
+
+});
+
 
 module.exports = router;

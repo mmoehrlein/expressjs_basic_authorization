@@ -1,0 +1,23 @@
+doctype html
+html
+    include ../includes/head
+    body
+        include ../includes/nav
+        .container.notifiactions
+            if notifications.errors
+                for error in notifications.errors
+                    .alert.alert-danger
+                        | #{error}
+            if notifications.warnings
+                for warning in notifications.warnings
+                    .alert.alert-warning
+                        | #{warning}
+            if notifications.successes
+                for success in notifications.successes
+                    .alert.alert-success
+                        | #{success}
+            if notifications.infos
+                for info in notifications.infos
+                    .alert.alert-info
+                        | #{info}
+        block content
