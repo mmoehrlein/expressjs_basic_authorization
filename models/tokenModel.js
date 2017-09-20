@@ -9,3 +9,13 @@ exports.verify = function(token, callback){
 exports.sign = function(data, callback){
     jwt.sign(data, secret, {}, callback);
 };
+
+exports.generate = function(user, callback){
+    var data = {
+        user: {
+            username: user.username
+        },
+        permissions: user.permissions
+    };
+    return callback(null, data);
+};

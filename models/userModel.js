@@ -34,24 +34,25 @@ exports.get = function(id, callback){
 };
 
 exports.authenticate = function(username, password, callback){
-    console.log("before query");
     db.query('SELECT * FROM users WHERE username = ?', username, function(err, results){
-        console.log("query done");
         if(err){
             return callback(err);
         }
-        console.log(results);
         if(results.length === 0){
             return callback(new Error("Benutzername oder Passwort falsch"));
         }
 
-        user = results[0];
+        var user = results[0];
 
-        bcrypt.compare(password, user.password, function(err, res) {
+        bcrypt.compare(password, user.password.toString(), function(err, success) {
             if(err){
                 return callback(err)
             }
-            callback(null, res, user);
+            if(success){
+                return callback(null, user);
+            } else {
+                return callback(new Error("Benutzername oder Passwort falsch"));
+            }
         });
     });
 };

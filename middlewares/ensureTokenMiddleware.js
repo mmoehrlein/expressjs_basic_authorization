@@ -3,12 +3,12 @@ module.exports = function(req, res, next){
     const bearerCookie = req.cookies.jwt;
 
     if(typeof bearerHeader !== 'undefined'){
-        const token = bearerHeader.split(" ")[1];
-        req.token = token;
+        req.token = bearerHeader.split(" ")[1];
 
     } else if(bearerCookie !== undefined){
         console.log("cookie");
         console.log(bearerCookie);
+        req.token = bearerCookie.split(" ")[1];
     } else {
         console.log("no token found");
         delete req.permissions;

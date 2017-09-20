@@ -1,8 +1,8 @@
 var express = require('express');
-var router  = express.Router();
-var User    = require('../models/userModel');
-var Token   = require('../models/tokenModel');
-var util    = require('util');
+var router = express.Router();
+var User = require('../models/userModel');
+var Token = require('../models/tokenModel');
+var util = require('util');
 
 
 // REGISTER
@@ -11,9 +11,12 @@ router.get('/register', function(req, res){
 });
 
 router.post('/register', function(req, res, next){
-    var name     = req.body.name;
+
+    var name = req.body.name;
     var password = req.body.password;
-    var email    = req.body.email;
+    var confirmPassword = req.body.confirmPassword;
+    var email = req.body.email;
+
     User.create(name, email, password, function(err, userid){
         if(err){
             next(err);
@@ -28,14 +31,19 @@ router.post('/register', function(req, res, next){
                 },
                 permissions: user.permissions
             };
-            //TODO token und cookie mit expiration date
-            Token.sign(data, function(err, token){
-                if(err){
-                    next(err);
-                }
-                res.cookie('jwt', 'Bearer ' + token);
-                //TODO register success page
-                res.send('user created and logged in');
+
+            Token.generate(user, function(err, data){
+                //TODO token und cookie mit expiration date
+                Token.sign(data, function(err, token){
+                    if(err){
+                        res.pushError(err.message)
+                           .render('../views/users/register');
+                    }
+                    res.cookie('jwt', 'Bearer ' + token);
+                    //TODO register success page
+                    res.pushSuccess("Erfolgreich registriert")
+                       .render('../views/home', {title: 'Home'});
+                });
             });
         });
     });
@@ -47,19 +55,36 @@ router.get('/login', function(req, res){
 });
 
 router.post('/login', function(req, res, next){
-    console.log(req.body);
-    User.authenticate(req.body.username, req.body.password, function(err, res, user){
+    User.authenticate(req.body.username, req.body.password, function(err, user){
         if(err){
-            notifications.pushError(res, err.message);
-            res.render('../views/users/login', {title: 'login'});
+            return res.pushError(err.message)
+                      .render('../views/users/login', {title: 'login'});
         }
-        console.log(util.inspect(user));
-        console.log(res);
-        notifications.pushSuccess(res, "Hallo " + user.username + ", login war erfolgreich");
-        res.redirect("/");
+
+        console.log(user);
+
+        Token.generate(user, function(err, data){
+            if(err){
+                return next(err);
+            }
+            Token.sign(data, function(err, token){
+                if(err){
+                    return next(err);
+                }
+                res.cookie('jwt', 'Bearer ' + token);
+                return res.pushSuccess("Hallo " + user.username + ", login war erfolgreich")
+                          .render("../views/home");
+
+            });
+        });
     });
 
 });
 
+router.get('/logout', function(req, res){
+    res.clearCookie('jwt');
+    res.pushSuccess("You have been logged out")
+       .render('../views/home', {title: 'home'});
+});
 
 module.exports = router;
