@@ -71,6 +71,7 @@ router.post('/login', function(req, res, next){
                 if(err){
                     return next(err);
                 }
+                res.locals.authenticated = true;
                 res.cookie('jwt', 'Bearer ' + token);
                 return res.pushSuccess("Hallo " + user.username + ", login war erfolgreich")
                           .render("../views/home");
@@ -82,6 +83,7 @@ router.post('/login', function(req, res, next){
 });
 
 router.get('/logout', function(req, res){
+    res.locals.authenticated = false;
     res.clearCookie('jwt');
     res.pushSuccess("You have been logged out")
        .render('../views/home', {title: 'home'});

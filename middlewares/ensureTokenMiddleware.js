@@ -1,18 +1,32 @@
+var Token = require('../models/tokenModel');
+
 module.exports = function(req, res, next){
     const bearerHeader = req.headers["authorization"];
     const bearerCookie = req.cookies.jwt;
-
+    var token = null;
     if(typeof bearerHeader !== 'undefined'){
-        req.token = bearerHeader.split(" ")[1];
-
+        token = bearerHeader.split(" ")[1];
     } else if(bearerCookie !== undefined){
-        console.log("cookie");
-        console.log(bearerCookie);
-        req.token = bearerCookie.split(" ")[1];
+        token = bearerCookie.split(" ")[1];
     } else {
         console.log("no token found");
-        delete req.permissions;
         delete req.user;
+        return next();
     }
-    next();
+
+    if(token !== null){
+        Token.verify(bearerCookie.split(" ")[1], function(err, data){
+            if(err){
+                console.log(err.message);
+                res.pushError("Token could not be verified. Please login again");
+                res.clearCookie('jwt');
+                res.locals.authenticated = false;
+                delete req.user;
+                return next();
+            }
+            res.locals.authenticated = true;
+            req.user = data;
+            return next();
+        });
+    }
 };

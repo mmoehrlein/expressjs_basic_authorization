@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(morgan('dev'));
-app.use(require('./middlewares/ensureTokenMiddleware'));
 app.use(require('./middlewares/notificationsMiddleware'));
+app.use(require('./middlewares/ensureTokenMiddleware'));
 
 // serving static content
 app.use(express.static(__dirname + '/public'));

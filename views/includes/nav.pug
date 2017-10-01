@@ -9,11 +9,13 @@ nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
                 a.nav-link(href='/')
                     | Home
                     span.sr-only (current)
-            li.nav-item
-                a.nav-link(href='/users/login') Login
-            li.nav-item
-                a.nav-link(href='/users/register') Register
-            li.nav-item
-                a.nav-link(href='/users/profile') Profile
-            li.nav-item
-                a.nav-link(href='/users/logout') Logout
+            if authenticated
+                li.nav-item
+                    a.nav-link(href='/users/profile') Profile
+                li.nav-item
+                    a.nav-link(href='/users/logout') Logout
+            else
+                li.nav-item
+                    a.nav-link(href='/users/login') Login
+                li.nav-item
+                    a.nav-link(href='/users/register') Register
