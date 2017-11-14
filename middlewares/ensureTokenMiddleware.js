@@ -10,6 +10,8 @@ module.exports = function(req, res, next){
         token = bearerCookie.split(" ")[1];
     } else {
         console.log("no token found");
+        req.authenticated = false;
+        res.locals.authenticated = false;
         delete req.user;
         return next();
     }
@@ -21,9 +23,11 @@ module.exports = function(req, res, next){
                 res.pushError("Token could not be verified. Please login again");
                 res.clearCookie('jwt');
                 res.locals.authenticated = false;
+                req.authenticated = false;
                 delete req.user;
                 return next();
             }
+            req.authenticated = true;
             res.locals.authenticated = true;
             req.user = data;
             return next();

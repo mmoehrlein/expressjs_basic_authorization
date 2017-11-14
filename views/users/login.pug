@@ -1,17 +1,22 @@
 extends ../templates/layout
 
 block content
-    .main.container
-        .row
-            .col-md-6.col-md-offset-3
-                h1.display-4.m-b-2 Log In
+    .row
+        .col.m8.offset-m2.l4.offset-l4
+            .row.card-panel.z-depth-2
+                .row.center
+                    h2.header.teal-text.text-darken-3 Log In
 
                 // login form
-                form(method='POST' action='/users/login')
-                    div.form-group
-                        label(for='name') Username:
-                        input#name.form-control(type='text', placeholder='Username' name='username')
-                    div.form-group
-                        label(for='pw') Password:
-                        input#pw.form-control(type='password' placeholder='Password' name='password')
-                    button.btn.btn-primary(type='submit') Log in
+                .row
+                    form.col.s12(method='POST' action='/users/login')
+                        .row
+                            .input-field
+                                input#name.validate(type='text' name='username')
+                                label(for='name') Username
+                        .row
+                            .input-field
+                                input#pw.validate(type='password' name='password')
+                                label(for='pw') Password
+                        .row
+                            button.waves-effect.waves-light.btn(type='submit') Log in

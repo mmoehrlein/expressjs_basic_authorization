@@ -21,5 +21,17 @@ module.exports = function(req, res, next){
         this.locals.notifications.infos.push(msg);
         return this;
     };
+    res.saveNotifiactions = function(){
+        console.log('saved');
+        req.notifications = this.locals.notifications;
+    };
+
+
+    // load notifiactions
+    if(req.notifications !== undefined){
+        console.log('loading');
+        res.locals.notifications = req.notifications
+
+    }
     next()
 };
