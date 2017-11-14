@@ -15,7 +15,7 @@ exports.generate = function(user, callback){
         user: {
             username: user.username
         },
-        permissions: user.permissions
+        permissions: JSON.parse(user.permissions)
     };
     return callback(null, data);
 };

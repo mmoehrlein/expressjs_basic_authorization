@@ -12,7 +12,7 @@ exports.create = function(username, email, password, callback){
             email: email,
             password: hash
         };
-        console.log(hash);
+        //console.log(hash);
 
         db.query('INSERT INTO users SET ?', user, function(err, result){
             if(err){

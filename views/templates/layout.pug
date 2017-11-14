@@ -3,23 +3,33 @@ html
     include ../includes/head
     body
         include ../includes/nav
-        .container.notifiactions
-            if notifications.errors
-                for error in notifications.errors
-                    .alert.alert-danger
-                        | #{error}
-            if notifications.warnings
-                for warning in notifications.warnings
-                    .alert.alert-warning
-                        | #{warning}
-            if notifications.successes
-                for success in notifications.successes
-                    .alert.alert-success
-                        | #{success}
-            if notifications.infos
-                for info in notifications.infos
-                    .alert.alert-info
-                        | #{info}
+        .container
+            if notifications.errors.length > 0
+                .row
+                    .collection
+                        for error in notifications.errors
+                            .collection-item.red.lighten-5.red-text.text-darken-3
+                                | #{error}
+            if notifications.warnings.length > 0
+                .row
+                    .collection
+                        for warning in notifications.warnings
+                            .collection-item.yellow.lighten-5.yellow-text.text-darken-3
+                                | #{warning}
+            if notifications.successes.length > 0
+                .row
+                    .collection
+                        for success in notifications.successes
+                            .collection-item.green.lighten-5.green-text.text-darken-3
+                                | #{success}
+            if notifications.infos.length > 0
+                 .row
+                    .collection
+                        for info in notifications.infos
+                            .collection-item.blue-grey.lighten-5.blue-grey-text.text-darken-3
+                                | #{info}
 
-        a(class="waves-effect waves-light btn") button
-        block content
+            block content
+
+    //include ../includes/footer
+    include ../includes/scripts

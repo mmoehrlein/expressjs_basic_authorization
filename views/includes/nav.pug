@@ -1,21 +1,20 @@
 - var brand = '<mmoehrlein/>'
-nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
-    a.navbar-brand(href='/') #{brand}
-    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-    #navbarCollapse.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-            li.nav-item
-                a.nav-link(href='/')
-                    | Home
-                    span.sr-only (current)
-            if authenticated
-                li.nav-item
-                    a.nav-link(href='/users/profile') Profile
-                li.nav-item
-                    a.nav-link(href='/users/logout') Logout
-            else
-                li.nav-item
-                    a.nav-link(href='/users/login') Login
-                li.nav-item
-                    a.nav-link(href='/users/register') Register
+.navbar-fixed
+    nav.teal
+        .nav-wrapper
+            a.brand-logo(href='/') #{brand}
+            ul.right.hide-on-med-and-down
+                li
+                    a(href='/') Home
+                if authenticated
+                    li
+                        a(href='/slides') Slides
+                    li
+                        a(href='/users/profile') Profile
+                    li
+                        a(href='/users/logout') Logout
+                else
+                    li
+                        a(href='/users/login') Login
+                    li
+                        a(href='/users/register') Register

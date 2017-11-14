@@ -1,14 +1,20 @@
 extends templates/layout
 block content
-    .container
-        .jumbotron.text-center
-            h1 Willkommen auf der Homepage
-            p.lead
-                h3 #{message}
-                hr
-                | Basic application with login and register functionality.
-            p
-                span
-                    a.btn.btn-lg.btn-primary(href='/users/login', role='button') login
-                span
-                    a.btn.btn-lg.btn-primary(href='/users/register', role='button') register
+    .row.center
+        .col.s12
+            .card-panel.blue-grey.lighten-4.z-depth-2
+                .row
+                    .col.s12
+                        h1 Willkommen auf der Homepage
+                .row
+                    .divider
+                .row
+                    .col.s8.offset-s2
+                        h3 #{message}
+                .row
+                    .divider
+                .row
+                    .col.s2.offset-s4
+                        a.waves-effect.waves-light.btn(href='/users/login', role='button') login
+                    .col.s2
+                        a.waves-effect.waves-light.btn(href='/users/register', role='button') register

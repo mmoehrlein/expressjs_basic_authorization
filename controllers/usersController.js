@@ -61,7 +61,7 @@ router.post('/login', function(req, res, next){
                       .render('../views/users/login', {title: 'login'});
         }
 
-        console.log(user);
+        //console.log(user);
 
         Token.generate(user, function(err, data){
             if(err){
