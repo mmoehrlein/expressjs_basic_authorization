@@ -2,24 +2,17 @@ var express = require('express');
 var router = express.Router();
 var util = require('util');
 var auth = require('../middlewares/authMiddleware');
+var resGen = require('../helpers/responseGenerator');
 
 
 router.use('/users', require('./usersController'));
 router.use('/dormip', require('./dormIpController'));
 router.use('/slides', require('./slidesController'));
 
-router.get('/', function(req, res){
-    res.render('home', {
-        title: 'Home',
-        message: util.inspect(req.user)
-    });
-});
+router.get('/', auth(['admin']), function(req, res){
+    var data = require('../helpers/dormIPLoader');
 
-router.get('/home', auth, function(req, res){
-    res.render('home', {
-        title: 'Home',
-        message: 'Hallo ' + req.user.user.username
-    });
+    res.json(resGen.response("test", data));
 });
 
 module.exports = router;

@@ -20,7 +20,8 @@ module.exports = function(req, res, next){
         Token.verify(bearerCookie.split(" ")[1], function(err, data){
             if(err){
                 console.log(err.message);
-                res.pushError("Token could not be verified. Please login again");
+                //res.pushError("Token could not be verified. Please login again");
+                console.log("Token could not be verified. Please login again");
                 res.clearCookie('jwt');
                 res.locals.authenticated = false;
                 req.authenticated = false;

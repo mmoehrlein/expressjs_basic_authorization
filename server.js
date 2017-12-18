@@ -18,12 +18,18 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(require('./middlewares/notificationsMiddleware'));
 app.use(require('./middlewares/ensureTokenMiddleware'));
-app.use(require('./middlewares/authMiddleware'));
+//app.use(require('./middlewares/authMiddleware'));
+
+
 // serving static content
 app.use(express.static(__dirname + '/public'));
 
-// routing
-app.use(require('./controllers'));
+// routing for api
+app.use('/api', require('./controllers'));
+
+
+
+//app.use(require('./views'));
 
 // catch 404 and forward to error handler
 app.use(require('./middlewares/404HandlerMiddleware'));
