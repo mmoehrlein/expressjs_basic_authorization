@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var auth = require('../middlewares/authMiddleware');
 
 router.get('/', function(req, res){
-    if(req.auth(['admin'])){
-        res.render('../views/slides/slides');
-    }
+    res.render('../views/slides/slides_markdown', {theme:'white', slides:['p test1', 'p test2']});
 });
 router.get('/:id', function(req, res){
     var id = req.params.id;

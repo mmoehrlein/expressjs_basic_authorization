@@ -1,5 +1,5 @@
 function loadHmsData(){
-    var rawData = require('../public/assets/hms-data.json');
+    var rawData = require('../data/dorm/hms-data.json');
     var list = [];
     var startip = "000.000.000.000";
     var lastip = "000.000.000.000";
